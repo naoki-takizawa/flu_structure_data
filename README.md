@@ -149,7 +149,6 @@ integrate NP CLIP data
 Web server...
 
 ## Reference
-Flu structure probing data  
 Comprehensive in virio structure probing analysis of the influenza A virus identifies functional RNA structures involved in viral genome replication.  
 N. Takizawa and R.K. Kawaguchi  
 Computational and Structural Biotechnology Journal, 21, 5259-5272 (2023)
