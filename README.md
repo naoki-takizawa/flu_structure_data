@@ -140,3 +140,11 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
+
+## Future plan
+integrate flu structure probing data reported by other labs  
+integrate NP CLIP data  
+Web server...
+
+## Reference
+Flu structure probing data  
