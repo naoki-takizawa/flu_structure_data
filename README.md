@@ -25,6 +25,7 @@ PR8_local_vRNA.fa.gz.gzi
 ## Browse using JBrowseR
 ### Before start
 R and Rstudio must be installed.
+Download dataset folder
 
 ### Install JBrowseR and shiny
 You can install JBrowseR and shiny on RStudio from CRAN with:
