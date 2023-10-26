@@ -140,6 +140,7 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
+The Shiny window will be launched. The page is blank in my windows environment, but I was able to use it by pressing the "Open in Browser" button at the top and launching the browser. Click on "open" first, then "OPEN TRACK SELECTOR" on the next screen. Check the data to be displayed and click outside the window to display the data. Enjoy!
 
 ## Future plan
 integrate flu structure probing data reported by other labs  
@@ -148,3 +149,7 @@ Web server...
 
 ## Reference
 Flu structure probing data  
+Comprehensive in virio structure probing analysis of the influenza A virus identifies functional RNA structures involved in viral genome replication.  
+N. Takizawa and R.K. Kawaguchi  
+Computational and Structural Biotechnology Journal, 21, 5259-5272 (2023)
+DOI: [https://doi.org/10.1016/j.csbj.2023.10.036](https://doi.org/10.1016/j.csbj.2023.10.036)
