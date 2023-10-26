@@ -151,5 +151,5 @@ Web server...
 ## Reference
 Comprehensive in virio structure probing analysis of the influenza A virus identifies functional RNA structures involved in viral genome replication.  
 N. Takizawa and R.K. Kawaguchi  
-Computational and Structural Biotechnology Journal, 21, 5259-5272 (2023)
+Computational and Structural Biotechnology Journal, 21, 5259-5272 (2023)  
 DOI: [https://doi.org/10.1016/j.csbj.2023.10.036](https://doi.org/10.1016/j.csbj.2023.10.036)
