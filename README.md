@@ -5,7 +5,7 @@ You can view these structure probing data of IAV using genome browser.
 Here, I will also show how to view these data locally using [JBrowseR](https://gmod.github.io/JBrowseR/index.html).
 
 ## probing data
-bigWig files of IAV structure probing data are in dataset folder. There are 12 bigWig files and reference sequence files in the folder.  
+bigWig files of IAV structure probing data are in dataset folder. There are 13 bigWig files and reference sequence files in the folder.  
 reactIDR_virion_SHAPE.bw  
 reactIDR_vRNP_SHAPE.bw  
 reactIDR_vRNA_SHAPE.bw  
