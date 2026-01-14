@@ -17,8 +17,8 @@ reactIDR_vRNP_DMS.bw
 reactIDR_vRNA_DMS.bw  
 BUMHMM_virion_DMS.bw  
 BUMHMM_vRNP_DMS.bw  
-BUMHMM_vRNA_DMS.bw
-Dadonaite_PR8_virion.bw
+BUMHMM_vRNA_DMS.bw  
+Dadonaite_PR8_virion.bw  
 PR8_local_vRNA.fa.gz  
 PR8_local_vRNA.fa.gz.fai  
 PR8_local_vRNA.fa.gz.gzi
