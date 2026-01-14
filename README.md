@@ -1,6 +1,6 @@
 # flu structure probing data 
 ## Introduction
-This repository contains bigWig files of influenza A virus (IAV) structure probing data publised in [N Takizawa and RK Kawaguchi, Comput Struct Biotechnol J. (2023)](https://www.sciencedirect.com/science/article/pii/S2001037023003926).
+This repository contains bigWig files of influenza A virus (IAV) structure probing data from [prior research](https://www.nature.com/articles/s41564-019-0513-7) and publised in [N Takizawa and RK Kawaguchi, Comput Struct Biotechnol J. (2023)](https://www.sciencedirect.com/science/article/pii/S2001037023003926).
 You can view these structure probing data of IAV using genome browser.
 Here, I will also show how to view these data locally using [JBrowseR](https://gmod.github.io/JBrowseR/index.html).
 
@@ -17,7 +17,8 @@ reactIDR_vRNP_DMS.bw
 reactIDR_vRNA_DMS.bw  
 BUMHMM_virion_DMS.bw  
 BUMHMM_vRNP_DMS.bw  
-BUMHMM_vRNA_DMS.bw  
+BUMHMM_vRNA_DMS.bw
+Dadonaite_PR8_virion.bw
 PR8_local_vRNA.fa.gz  
 PR8_local_vRNA.fa.gz.fai  
 PR8_local_vRNA.fa.gz.gzi
@@ -126,8 +127,13 @@ server <- function(input, output, session) {
     assembly
   )
 
+  Dadonaite_virion_track <- track_wiggle(
+    "http://127.0.0.1:5000/Dadonaite_PR8_virion.bw",
+    assembly
+  )
+
   # create the tracks array to pass to browser
-  tracks <- tracks(rI_virion_SHAPE_track, rI_vRNP_SHAPE_track, rI_vRNA_SHAPE_track, BH_virion_SHAPE_track, BH_vRNP_SHAPE_track, BH_vRNA_SHAPE_track, rI_virion_DMS_track, rI_vRNP_DMS_track, rI_vRNA_DMS_track, BH_virion_DMS_track, BH_vRNP_DMS_track, BH_vRNA_DMS_track)
+  tracks <- tracks(rI_virion_SHAPE_track, rI_vRNP_SHAPE_track, rI_vRNA_SHAPE_track, BH_virion_SHAPE_track, BH_vRNP_SHAPE_track, BH_vRNA_SHAPE_track, rI_virion_DMS_track, rI_vRNP_DMS_track, rI_vRNA_DMS_track, BH_virion_DMS_track, BH_vRNP_DMS_track, BH_vRNA_DMS_track, Dadonaite_virion_track)
 
   # link the UI with the browser widget
   output$browserOutput <- renderJBrowseR(
@@ -144,7 +150,6 @@ shinyApp(ui, server)
 The Shiny window will be launched. The page is blank in my windows environment, but I was able to use it by pressing the "Open in Browser" button at the top and launching the browser. Click on "open" first, then "OPEN TRACK SELECTOR" on the next screen. Check the data to be displayed and click outside the window to display the data. Enjoy!
 
 ## Future plan
-integrate flu structure probing data reported by other labs  
 integrate NP CLIP data  
 Web server...
 
