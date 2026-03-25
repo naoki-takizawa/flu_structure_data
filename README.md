@@ -19,7 +19,7 @@ BUMHMM_virion_DMS.bw
 BUMHMM_vRNP_DMS.bw  
 BUMHMM_vRNA_DMS.bw  
 Dadonaite_PR8_virion.bw  
-NP_CLIP_PR8.bw
+NP_CLIP_PR8.bw  
 PR8_local_vRNA.fa.gz  
 PR8_local_vRNA.fa.gz.fai  
 PR8_local_vRNA.fa.gz.gzi
