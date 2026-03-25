@@ -1,6 +1,6 @@
 # flu structure probing data 
 ## Introduction
-This repository contains bigWig files of influenza A virus (IAV) structure probing data from [prior research](https://www.nature.com/articles/s41564-019-0513-7) and publised in [N Takizawa and RK Kawaguchi, Comput Struct Biotechnol J. (2023)](https://www.sciencedirect.com/science/article/pii/S2001037023003926).
+This repository contains bigWig files of influenza A virus (IAV) structure probing data from [prior research](https://www.nature.com/articles/s41564-019-0513-7) and publised in [N Takizawa and RK Kawaguchi, Comput Struct Biotechnol J. (2023)](https://www.sciencedirect.com/science/article/pii/S2001037023003926) and [CLIP data of NP](https://www.nature.com/articles/s41467-018-02886-w).
 You can view these structure probing data of IAV using genome browser.
 Here, I will also show how to view these data locally using [JBrowseR](https://gmod.github.io/JBrowseR/index.html).
 
@@ -19,6 +19,7 @@ BUMHMM_virion_DMS.bw
 BUMHMM_vRNP_DMS.bw  
 BUMHMM_vRNA_DMS.bw  
 Dadonaite_PR8_virion.bw  
+NP_CLIP_PR8.bw
 PR8_local_vRNA.fa.gz  
 PR8_local_vRNA.fa.gz.fai  
 PR8_local_vRNA.fa.gz.gzi
@@ -55,102 +56,59 @@ Paste and execute the following command in Rstudio.
 ```
 ui <- fluidPage(
   titlePanel("Flu structure data"),
-  # this adds to the browser to the UI, and specifies the output ID in the server
   JBrowseROutput("browserOutput")
 )
 
 server <- function(input, output, session) {
-  # create the necessary JB2 assembly configuration
-  assembly <- assembly(
-    "http://127.0.0.1:5000/PR8_local_vRNA.fa.gz",
+
+  base_url <- "http://127.0.0.1:5000/"
+
+  assembly_obj <- assembly(
+    paste0(base_url, "PR8_local_vRNA.fa.gz"),
     bgzip = TRUE
   )
 
- # create configuration for a JB2 bigWig Track
-  rI_virion_SHAPE_track <- track_wiggle(
-    "http://127.0.0.1:5000/reactIDR_virion_SHAPE.bw",
-    assembly
+  track_files <- c(
+    "reactIDR_virion_SHAPE.bw",
+    "reactIDR_vRNP_SHAPE.bw",
+    "reactIDR_vRNA_SHAPE.bw",
+    "BUMHMM_virion_SHAPE.bw",
+    "BUMHMM_vRNP_SHAPE.bw",
+    "BUMHMM_vRNA_SHAPE.bw",
+    "reactIDR_virion_DMS.bw",
+    "reactIDR_vRNP_DMS.bw",
+    "reactIDR_vRNA_DMS.bw",
+    "BUMHMM_virion_DMS.bw",
+    "BUMHMM_vRNP_DMS.bw",
+    "BUMHMM_vRNA_DMS.bw",
+    "Dadonaite_PR8_virion.bw",
+	"NP_CLIP_PR8.bw"
   )
 
-  rI_vRNP_SHAPE_track <- track_wiggle(
-    "http://127.0.0.1:5000/reactIDR_vRNP_SHAPE.bw",
-    assembly
-  )
+  track_list <- lapply(track_files, function(file) {
+    track_wiggle(
+      paste0(base_url, file),
+      assembly_obj
+    )
+  })
 
-  rI_vRNA_SHAPE_track <- track_wiggle(
-    "http://127.0.0.1:5000/reactIDR_vRNA_SHAPE.bw",
-    assembly
-  )
+  tracks_obj <- do.call(tracks, track_list)
 
-  BH_virion_SHAPE_track <- track_wiggle(
-    "http://127.0.0.1:5000/BUMHMM_virion_SHAPE.bw",
-    assembly
-  )
-
-  BH_vRNP_SHAPE_track <- track_wiggle(
-    "http://127.0.0.1:5000/BUMHMM_vRNP_SHAPE.bw",
-    assembly
-  )
-
-  BH_vRNA_SHAPE_track <- track_wiggle(
-    "http://127.0.0.1:5000/BUMHMM_vRNA_SHAPE.bw",
-    assembly
-  )
-
-  rI_virion_DMS_track <- track_wiggle(
-    "http://127.0.0.1:5000/reactIDR_virion_DMS.bw",
-    assembly
-  )
-
-  rI_vRNP_DMS_track <- track_wiggle(
-    "http://127.0.0.1:5000/reactIDR_vRNP_DMS.bw",
-    assembly
-  )
-
-  rI_vRNA_DMS_track <- track_wiggle(
-    "http://127.0.0.1:5000/reactIDR_vRNA_DMS.bw",
-    assembly
-  )
-
-  BH_virion_DMS_track <- track_wiggle(
-    "http://127.0.0.1:5000/BUMHMM_virion_DMS.bw",
-    assembly
-  )
-
-  BH_vRNP_DMS_track <- track_wiggle(
-    "http://127.0.0.1:5000/BUMHMM_vRNP_DMS.bw",
-    assembly
-  )
-
-  BH_vRNA_DMS_track <- track_wiggle(
-    "http://127.0.0.1:5000/BUMHMM_vRNA_DMS.bw",
-    assembly
-  )
-
-  Dadonaite_virion_track <- track_wiggle(
-    "http://127.0.0.1:5000/Dadonaite_PR8_virion.bw",
-    assembly
-  )
-
-  # create the tracks array to pass to browser
-  tracks <- tracks(rI_virion_SHAPE_track, rI_vRNP_SHAPE_track, rI_vRNA_SHAPE_track, BH_virion_SHAPE_track, BH_vRNP_SHAPE_track, BH_vRNA_SHAPE_track, rI_virion_DMS_track, rI_vRNP_DMS_track, rI_vRNA_DMS_track, BH_virion_DMS_track, BH_vRNP_DMS_track, BH_vRNA_DMS_track, Dadonaite_virion_track)
-
-  # link the UI with the browser widget
-  output$browserOutput <- renderJBrowseR(
+  output$browserOutput <- renderJBrowseR({
     JBrowseR(
       "View",
-      assembly = assembly,
-	  tracks = tracks
+      assembly = assembly_obj,
+      tracks = tracks_obj
     )
-  )
+  })
 }
 
 shinyApp(ui, server)
+
 ```
 The Shiny window will be launched. The page is blank in my windows environment, but I was able to use it by pressing the "Open in Browser" button at the top and launching the browser. Click on "open" first, then "OPEN TRACK SELECTOR" on the next screen. Check the data to be displayed and click outside the window to display the data. Enjoy!
 
-## Future plan
-integrate NP CLIP data  
+## Future plan 
 Web server...
 
 ## Reference
